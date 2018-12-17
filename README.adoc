@@ -33,29 +33,50 @@ een optimale plaatsing kan berekenen in termen van `(W, D, l, b)`. De
 oppervlakte van de stalling is `W * D` met `W > D`. De camper heeft het
 formaat van `l` bij `b`, met `l > b`.
 
-Tijd voor een voorbeeld. In het plaatje hieronder zie je twee mogelijke
-uitwerkingen van de instantie (W,D,l,b)=(42,39,9,4). In (a) zijn er 44
-campers geplaatst. In (b) 45. Uitwerking (b) is dus beter!
+Tijd voor een voorbeeld. In de plaatjes hieronder zie je een aantal
+uitwerkingen van de instantie `(W,D,l,b)=(42,39,9,4)`:
 
-image::example.png[]
+a. Campers moeten binnen het terrein van de stalling vallen en campers op
+   elkaar stapelen doen we toch maar niet, dus deze uitwerking is niet valide.
+   Je zou er 0 punten voor krijgen.
++
+
+image::content/example1.png[]
+b. Met een naief algoritme kom je al heel ver... 42 geplaatste campers. Je
+   houdt nog ruimte over, maar beter dan 0 punten door een time-out ;-).
+   Toch 42 punten in de pocket!
++
+
+image::content/example2.png[]
+c. Maar de echte uitdaging is natuurlijk om het optimum te vinden. Hier zie
+   je een mogelijke uitwerking van het maximum aantal te plaatsen campers van 45.
+   En dat levert je dus het maximum aantal punten van 45 op voor deze case.
+
+image::content/example3.png[]
 
 *Praktische zaken*
 
-Om een eerlijke vergelijking mogelijk te maken is het natuurlijk nodig dat
-iedereen zijn opdracht uitwerkt in dezelfde taal. Ik heb gekozen voor python.
-Het moet een commandline programma zijn, welke als volgt is aan te roepen:
+Schrijf een commandline programma in je favoriete taal. Zorg dat duidelijk is
+hoe we je programma moeten bouwen indien nodig. Ik run de inzendingen op een
+native draaiende fedora 29, waarbij elke inzending gethrottled wordt
+naar 1 core (pentium i5), 8 GB geheugen en 30 sec cpu tijd.
+
+Om duidelijk te maken wat we als input en output verwachten stel ik een
+kick-start Python3 script beschikbaar in de repo. Kun je gelijk lekker snel
+aan de slag. Andere talen gaan analoog. In ieder geval moet het programma de
+volgende invoer accepteren:
 ```
 > kerstpuzzel2018.py <W> <D> <l> <b>
 ```
 De uitvoer is een JSON-array met voor elke geplaatste camper een array met de
 integer x,y-coordinaten van de linker-onderhoek en een letter H,V voor de
-orientatie. Bijvoorbeeld, de (beetje ingekorte) uitvoer van (a) in het
+orientatie. Bijvoorbeeld, de (beetje ingekorte) uitvoer van (b) in het
 voorbeeld zou zijn:
 ```
 > kerstpuzzel.py 42 39 9 4
-[[0,0,"V"],[4,0,"V"], ... ,[38,30,"V"]]
+[[0,0,"V"],[4,0,"V"], ... ,[27,35,"H"]]
 ```
-En van (b):
+En van (c):
 ```
 > kerstpuzzel.py 42 39 9 4
 [[0,0,"H"],[9,0,"H"], ... ,[33,35,"H"]]
@@ -63,22 +84,15 @@ En van (b):
 
 *Beoordelingscriteria*
 
-Ik ga je python script (pre-compiled) 1000 keer aanroepen met iedere keer een andere case, van
-makkelijk tot moeilijk. Voor elke case kun je 0, 1 of 2 punten verdienen. De
-regels zijn:
+Ik ga je script 1000 keer aanroepen met iedere keer een andere case, van
+makkelijk tot moeilijk. Puntentelling:
 
-  .	0 punten: timeout op max runtime van 30 sec. per case
-  .	0 punten: de oplossing niet valide is (dus geen overlap e.d.)
-  .	0 punten: `*N* < *min*`
-  .	1 punt: `*min* < = *N* < *max*`
-  .	2 punten: `*N* = *max*`
+- Voor een oplossing die niet valide is (overlap etc.) en bij een timeout
+  na 30 sec. krijg je geen punten.
+- Verder is iedere geplaatste camper 1 punt.
 
-Waarbij *'N'* het aantal geplaatste campers is, het minimum
-*'min'* = max[(W **div** l) * (D **div** b) , (W **div** b) * (D **div** l)] en
-*'max'* het theoretisch maximum te plaatsen aantal.
-De punten van alle cases tel ik op. Je kunt dus minimaal 0 en maximaal 2000
-punten halen. Gelijk aantal punten? Dan wint degene met de laagste som van de
-runtime van alle cases bij elkaar.
+De winnaar is degene met de meeste punten opgeteld over alle cases. Gelijk
+aantal punten? Dan wint degene met mooiste implementatie.
 
 *Tips*
 
@@ -95,15 +109,13 @@ geval zijn er constructieve alternatieven die veel sneller naar een resultaat
 convergeren.
 
 Oh ja… 0 punten scoren op een case zou echt niet nodig hoeven zijn! Met een
-beetje time management en netjes programmeren zijn criteria 1 en 2 geen
-probleem. Criterium 3 gaat over de triviale manier om de campers te
-plaatsen. Dus da’s misschien een leuke initialisatie?! (Het verschil tussen
-criterium 4 en 5 is moeilijker, maar daar gaat het nu juist om!)
+beetje time management en netjes programmeren hoef je niet in de valkuil van
+het eerste criterium te vallen.
 
 *Twijfel niet langer!*
 
-Wil je meedoen? Stuur dan een mailtje naar marcel.tode@ogd.nl. Dan krijgt je
-een mapje in mijn gitrepo en kun je aan de slag.
+Wil je meedoen? Stuur dan een mailtje naar marcel.tode@ogd.nl. Dan krijg je
+een mapje + branch in mijn gitrepo en kun je aan de slag.
 
 Werk je niet bij de BUS en denk je van... ‘wow wat doen ze vette dingen bij de
 BUSBI’. Dat klopt! Maar niet getreurd, ook jij mag meedoen. Win en breng jezelf
