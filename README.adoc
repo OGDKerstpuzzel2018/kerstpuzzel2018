@@ -2,20 +2,20 @@
 
 image::https://imgs.xkcd.com/comics/puzzle.png[link="https://imgs.xkcd.com/comics/puzzle.png"]
 
-*Hoi BUSBietjes...*
+*Hoi deelnemers...*
 
 Het is weer het einde van het jaar. Tijd voor de meeste van jullie om een à
 twee weken verlof op te nemen. Maar twee weken zonder je werk is wel heel erg
-afkicken natuurlijk. Daarom heb ik speciaal – om je niet te hoeven vervelen –
+afkicken natuurlijk. Daarom hebben we speciaal – om je niet te hoeven vervelen –
 een heuse kerstpuzzel geschreven. Een beetje als de AIVD-kerstpuzzel. Maar dan
 leuker!
 
 Want deze puzzel kun je oplossen door te programmeren. En… je kunt ook een
 echte prijs winnen. Hoe doe je dat? Stuur je oplossing in *voor 15 januari 2019*
-bij mij. De beste inzending wint sowieso een waardebon van €25. Maar als jouw
-algoritme beter presteert dan mijn implementatie dan verdubbel ik de prijs.
-Kijk! Nu heb ik je aandacht ;-). Makkelijk scoren tegen zo’n Product Owner zou
-ik zeggen… dus doe mee!
+naar kerstpuzzel2018@ogd.nl. De beste inzending wint sowieso een waardebon van €25. 
+Maar als jouw algoritme beter presteert dan mijn implementatie dan verdubbel ik 
+de prijs. Kijk! Nu heb ik je aandacht ;-). Makkelijk scoren tegen zo’n Product Owner 
+zou ik zeggen… dus doe mee!
 
 *De opdracht*
 
@@ -84,7 +84,7 @@ En van (c):
 
 *Beoordelingscriteria*
 
-Ik ga je script 1000 keer aanroepen met iedere keer een andere case, van
+We gaan je script 1000 keer aanroepen met iedere keer een andere case, van
 makkelijk tot moeilijk. Puntentelling:
 
 - Voor een oplossing die niet valide is (overlap etc.) en bij een timeout
@@ -112,17 +112,8 @@ Oh ja… 0 punten scoren op een case zou echt niet nodig hoeven zijn! Met een
 beetje time management en netjes programmeren hoef je niet in de valkuil van
 het eerste criterium te vallen.
 
-*Twijfel niet langer!*
-
-Wil je meedoen? Stuur dan een mailtje naar marcel.tode@ogd.nl. Dan krijg je
-een mapje + branch in mijn gitrepo en kun je aan de slag.
-
-Werk je niet bij de BUS en denk je van... ‘wow wat doen ze vette dingen bij de
-BUSBI’. Dat klopt! Maar niet getreurd, ook jij mag meedoen. Win en breng jezelf
-in ons vizier!
-
-Na de deadline breng ik alle resultaten, software en tooling online, zodat
-iedereen zelf alles kan checken. Ik hoop op veel aanmeldingen. Veel plezier!
+Na de deadline brengen we alle resultaten, software en tooling online, zodat
+iedereen zelf alles kan checken. We hopen op veel aanmeldingen. Veel plezier!
 En veel succes!
 
 Fijne feestdagen en een gelukkig nieuwjaar alvast!
