@@ -5,90 +5,52 @@
 # algo: ?
 # -----------------------------------------------------------------------------
 
-import sys, getopt, json
+import argparse
+from collections import namedtuple
+from json import dumps
+
+Placement = namedtuple('Placement', ['x', 'y', 'o'])
 
 
 def run_your_fancy_algorithm(W, D, l, b):
     """Convert BCPP(W, D, l, b) into array of placements"""
     placements = []
-
     #
     # Do your magic here!
     #
-
-    # Just adding two dummy placements similar to what your algo will do
     p = Placement(0, 0, "H")
-    if p.is_sane(W, D, l, b):
-        placements.append(p)
-    p = Placement(W-b, D-l, "V")
-    if p.is_sane(W, D, l, b):
-        placements.append(p)
+    placements.append(p._asdict())
     return placements
 
 
-class Placement:
-    """Simple object representing a placement"""
-    def __init__(self, x: int, y: int, o: str):
-        """Constructor"""
-        self.x: int = x
-        self.y: int = y
-        self.o: str = o
-
-    def is_sane(self, W, D, l, b):
-        """Sanity check w.r.t. the space bounds"""
-        return  (self.x >= 0) \
-            and (self.y >= 0) \
-            and (self.x + (l if self.o == "H" else b) <= W) \
-            and (self.y + (l if self.o == "V" else b) <= D)
-
-
-class PlacementEncoder(json.JSONEncoder):
-    """Special encoder for Placements to facilitate JSON exports"""
-    def default(self, obj):
-        if isinstance(obj, Placement):
-            return [obj.x, obj.y, obj.o]
-            # Let the base class default method raise the TypeError
-            return json.JSONEncoder.default(self, obj)
+def parse_arguments():
+    parser = argparse.ArgumentParser(
+        usage='%(prog)s [options] <W> <D> <l> <b>',
+        description='OGD kerstpuzzel 2018',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog='kerstpuzzel.py <W> <D> <l> <b>')
+    parser.add_argument('W', type=int, help='Width parking space')
+    parser.add_argument('D', type=int, help='Depth parking space')
+    parser.add_argument('l', type=int, help='length camper')
+    parser.add_argument('b', type=int, help='breadth camper')
+    args = parser.parse_args()
+    if args.W <= 0 or args.D <= 0 or args.l <= 0 or args.b <= 0:
+        parser.error('All values must be greater than 0')
+    if args.W < args.D:
+        parser.error('W must be greater than or equal to D')
+    if args.l < args.b:
+        parser.error('l must be greater than or equal to b')
+    if args.l > args.W or args.b > args.D:
+        parser.error('invalid l,b cannot be placed within WxD area')
+    return args.W, args.D, args.l, args.b
 
 
-def print_usage():
-    """Print the invocation usage"""
-    print('kerstpuzzel.py <W> <D> <l> <b>')
-
-
-def check_preconditions(W, D, l, b):
-    """Make sure the preconitions on the input is met"""
-    if W <= D:
-        print('W must be greater than D')
-        sys.exit(2)
-    if l <= b:
-        print('l must be greater than b')
-        sys.exit(2)
-    if l > W or b > D:
-        print('invalid l,b cannot be placed within WxD area')
-        sys.exit(2)
-
-
-def main(argv):
+def main():
     """Application entry point"""
-    W, D, l, b = 0, 0, 0, 0;
-    try:
-        opts, args = getopt.getopt(argv,"h",["help"])
-        W = int(args[0])
-        D = int(args[1])
-        l = int(args[2])
-        b = int(args[3])
-    except (getopt.GetoptError, IndexError, ValueError):
-        print_usage()
-        sys.exit(2)
-    for opt, arg in opts:
-        if opt == '-h' or opt == '--help':
-            print_usage()
-            sys.exit()
-    check_preconditions(W, D, l, b)
+    W, D, l, b = parse_arguments()
     placements = run_your_fancy_algorithm(W, D, l, b)
-    print(json.dumps(placements, cls=PlacementEncoder))
+    print(dumps(placements))
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    main()
